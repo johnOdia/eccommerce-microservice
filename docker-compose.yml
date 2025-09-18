@@ -1,0 +1,90 @@
+services:
+  # MongoDB container (one instance, multiple DBs)
+  mongo:
+    image: mongo:7
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  customer-service:
+    build: ./customer-service
+    container_name: customer-service
+    restart: always
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./customer-service/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+    - ./customer-service/src:/app/src
+    - ./customer-service/package*.json:/app/package*.json
+    - /app/node_modules 
+    command: ["sh", "-c", "npm run seed && npm run dev"]
+
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    restart: always
+    ports:
+      - "4002:4002"
+    env_file:
+      - ./product-service/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+    - ./product-service/src:/app/src
+    - ./product-service/package*.json:/app/package*.json
+    - /app/node_modules 
+    command: ["sh", "-c", "npm run seed && npm run dev"]
+
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    restart: always
+    ports:
+      - "4003:4003"
+    env_file:
+      - ./order-service/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+    - ./order-service/src:/app/src
+    - ./order-service/package*.json:/app/package*.json
+    - /app/node_modules 
+
+  payment-service:
+    build: ./payment-service
+    container_name: payment-service
+    restart: always
+    ports:
+      - "4004:4004"
+    env_file:
+      - ./payment-service/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+    - ./payment-service/src:/app/src
+    - ./payment-service/package*.json:/app/package*.json
+    - /app/node_modules 
+
+volumes:
+  mongo_data:
