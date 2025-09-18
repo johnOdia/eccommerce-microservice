@@ -1,7 +1,7 @@
 # Project Setup and API Instructions
 
 ## Prerequisites
-Make sure you have **Docker** installed on your machine. You can download it from [Docker's official website](https://www.docker.com/get-started).
+Make sure you have **Docker** installed on your machine. You can download it from [Docker's official website](https://www.docker.com/get-started). This project runs on docker leveraging docker mongo for all database interactions.
 
 ## Running the Application
 1. Open a terminal in the project root directory.
