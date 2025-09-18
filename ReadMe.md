@@ -6,9 +6,12 @@ Make sure you have **Docker** installed on your machine. You can download it fro
 ## Running the Application
 1. Open a terminal in the project root directory.
 2. Run the following command to build and start all services:
-
 ```bash
 docker compose up --build
+
+3. Wait for all services to start up (wait for the logs to end on the docker terminal) before interacting with the endpoints.
+4. View documentation and run API requests on http://localhost:4001/api-docs
+
 
 # Seeded User
 email - john@example.com
