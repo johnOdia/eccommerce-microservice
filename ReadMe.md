@@ -1,3 +1,8 @@
+# Description 
+This is a demo application for an eccomerce application with backend services powered by Node (Nest) JS, Mongodb, GRPC for synchronous communication between services, Rabbitmq for asynchronous processing, and a microservice architecture.
+
+A frontend running on React JS. And a unified docker implementation to start all services.
+
 # Project Setup and API Instructions
 
 ## Prerequisites
